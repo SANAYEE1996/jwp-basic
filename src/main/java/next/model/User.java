@@ -28,6 +28,10 @@ public class User {
     public String getEmail() {
         return email;
     }
+    
+    public boolean isSameUser(User user) {
+        return userId.equals(user.userId);
+    }
 
     @Override
     public int hashCode() {
