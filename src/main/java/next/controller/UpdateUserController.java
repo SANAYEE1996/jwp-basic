@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import core.db.DataBase;
 import core.mvc.Controller;
+import next.dao.UserDao;
 import next.model.User;
 
 public class UpdateUserController implements Controller {
@@ -19,11 +20,11 @@ public class UpdateUserController implements Controller {
         if (!UserSessionUtils.isSameUser(req.getSession(), user)) {
             throw new IllegalStateException("다른 사용자의 정보를 수정할 수 없습니다.");
         }
-
+        UserDao dao = new UserDao();
         User updateUser = new User(req.getParameter("userId"), req.getParameter("password"), req.getParameter("name"),
                 req.getParameter("email"));
+        dao.update(updateUser);
         log.debug("Update User : {}", updateUser);
-        user.update(updateUser);
         return "redirect:/";
     }
 }
