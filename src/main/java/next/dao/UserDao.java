@@ -18,13 +18,9 @@ public class UserDao {
 	
 	private static final Logger log = LoggerFactory.getLogger(UserDao.class);
 	
-    public void insert(User user) throws SQLException {
-        Connection con = null;
-        PreparedStatement pstmt = null;
-        try {
-            con = ConnectionManager.getConnection();
-            String sql = "INSERT INTO USERS VALUES (?, ?, ?, ?)";
-            pstmt = con.prepareStatement(sql);
+	public void setValuesForInsert(User user, PreparedStatement pstmt) throws Exception {
+		try(Connection con = ConnectionManager.getConnection();) {
+            pstmt = con.prepareStatement(createQueryForInsert());
             pstmt.setString(1, user.getUserId());
             pstmt.setString(2, user.getPassword());
             pstmt.setString(3, user.getName());
@@ -32,24 +28,23 @@ public class UserDao {
 
             pstmt.executeUpdate();
         } finally {
-            if (pstmt != null) {
-                pstmt.close();
-            }
-
-            if (con != null) {
-                con.close();
-            }
+        	if (pstmt != null) pstmt.close();
         }
-    }
-
-    public void update(User user) throws SQLException {
-    	Connection con = null;
+	}
+	
+	public String createQueryForInsert() {
+		return "INSERT INTO USERS VALUES (?, ?, ?, ?)";
+	}
+	
+	
+    public void insert(User user) throws Exception {
         PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        try {
-        	con = ConnectionManager.getConnection();
-            String sql = "update users set password = ? , name = ? , email = ? where userId = ?";
-            pstmt = con.prepareStatement(sql);
+        setValuesForInsert(user, pstmt);
+    }
+    
+    public void setValuesForUpdate(User user, PreparedStatement pstmt) throws Exception{
+    	try(Connection con = ConnectionManager.getConnection();) {
+            pstmt = con.prepareStatement(createQueryForupdate());
             pstmt.setString(1, user.getPassword());
             pstmt.setString(2, user.getName());
             pstmt.setString(3, user.getEmail());
@@ -57,18 +52,18 @@ public class UserDao {
             
             int result = pstmt.executeUpdate();
             log.debug("update 된 행의 갯수 : {}" , result);
+    	}finally {
+            if (pstmt != null) pstmt.close();
         }
-        finally {
-        	if (rs != null) {
-                rs.close();
-            }
-            if (pstmt != null) {
-                pstmt.close();
-            }
-            if (con != null) {
-                con.close();
-            }
-        }
+    }
+    
+    public String createQueryForupdate() {
+		return "update users set password = ?, name = ?, email = ? where userId = ?";
+	}
+
+    public void update(User user) throws Exception {
+        PreparedStatement pstmt = null;
+        setValuesForUpdate(user, pstmt);
     }
 
     public List<User> findAll() throws SQLException {
