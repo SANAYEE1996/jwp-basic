@@ -35,12 +35,6 @@ public class UserDao {
 	public String createQueryForInsert() {
 		return "INSERT INTO USERS VALUES (?, ?, ?, ?)";
 	}
-	
-	
-    public void insert(User user) throws Exception {
-        PreparedStatement pstmt = null;
-        setValuesForInsert(user, pstmt);
-    }
     
     public void setValuesForUpdate(User user, PreparedStatement pstmt) throws Exception{
     	try(Connection con = ConnectionManager.getConnection();) {
@@ -60,11 +54,6 @@ public class UserDao {
     public String createQueryForupdate() {
 		return "update users set password = ?, name = ?, email = ? where userId = ?";
 	}
-
-    public void update(User user) throws Exception {
-        PreparedStatement pstmt = null;
-        setValuesForUpdate(user, pstmt);
-    }
 
     public List<User> findAll() throws SQLException {
     	Connection con = null;
