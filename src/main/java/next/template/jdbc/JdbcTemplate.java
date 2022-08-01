@@ -2,12 +2,15 @@
 
 import java.sql.PreparedStatement;
 
-import next.dao.UserDao;
-import next.model.User;
 
-public class UpdateJdbcTemplate {
-	public void update(User user, UserDao dao) throws Exception{
+public class JdbcTemplate {
+	
+	public void update(String query) throws Exception{
 		PreparedStatement pstmt = null;
-		dao.setValuesForUpdate(user, pstmt);
+		setValues(pstmt, query);
 	}
+	
+	public void setValues(PreparedStatement pstmt, String query) throws Exception{
+    	
+    }
 }

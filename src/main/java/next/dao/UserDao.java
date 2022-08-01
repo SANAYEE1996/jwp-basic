@@ -12,47 +12,57 @@ import org.slf4j.LoggerFactory;
 
 import core.jdbc.ConnectionManager;
 import next.model.User;
+import next.template.jdbc.JdbcTemplate;
 
 public class UserDao {
 	
 	
 	private static final Logger log = LoggerFactory.getLogger(UserDao.class);
 	
-	public void setValuesForInsert(User user, PreparedStatement pstmt) throws Exception {
-		try(Connection con = ConnectionManager.getConnection();) {
-            pstmt = con.prepareStatement(createQueryForInsert());
-            pstmt.setString(1, user.getUserId());
-            pstmt.setString(2, user.getPassword());
-            pstmt.setString(3, user.getName());
-            pstmt.setString(4, user.getEmail());
+	public void insert(User user) throws Exception {
+		JdbcTemplate jdbcTemplate = new JdbcTemplate() {
 
-            pstmt.executeUpdate();
-        } finally {
-        	if (pstmt != null) pstmt.close();
-        }
-	}
-	
-	public String createQueryForInsert() {
-		return "INSERT INTO USERS VALUES (?, ?, ?, ?)";
+			
+			public void setValues(PreparedStatement pstmt, String query) throws Exception{
+		    	try(Connection con = ConnectionManager.getConnection();){
+		    		pstmt = con.prepareStatement(query);
+		    		pstmt.setString(1, user.getUserId());
+		            pstmt.setString(2, user.getPassword());
+		            pstmt.setString(3, user.getName());
+		            pstmt.setString(4, user.getEmail());
+		            
+		            int result = pstmt.executeUpdate();
+		            log.debug("실행된 수 : {}", result);
+		    	}
+		    	finally {
+		        	if (pstmt != null) pstmt.close();
+		        }
+		    }
+		};
+		jdbcTemplate.update("INSERT INTO USERS VALUES (?, ?, ?, ?)");
 	}
     
-    public void setValuesForUpdate(User user, PreparedStatement pstmt) throws Exception{
-    	try(Connection con = ConnectionManager.getConnection();) {
-            pstmt = con.prepareStatement(createQueryForupdate());
-            pstmt.setString(1, user.getPassword());
-            pstmt.setString(2, user.getName());
-            pstmt.setString(3, user.getEmail());
-            pstmt.setString(4, user.getUserId());
-            
-            int result = pstmt.executeUpdate();
-            log.debug("update 된 행의 갯수 : {}" , result);
-    	}finally {
-            if (pstmt != null) pstmt.close();
-        }
-    }
-    
-    public String createQueryForupdate() {
-		return "update users set password = ?, name = ?, email = ? where userId = ?";
+	public void update(User user)  throws Exception  {
+		JdbcTemplate jdbcTemplate = new JdbcTemplate() {
+
+			@Override
+			public void setValues(PreparedStatement pstmt, String query) throws Exception{
+		    	try(Connection con = ConnectionManager.getConnection();){
+		    		pstmt = con.prepareStatement(query);
+		    		pstmt.setString(1, user.getPassword());
+		            pstmt.setString(2, user.getName());
+		            pstmt.setString(3, user.getEmail());
+		            pstmt.setString(4, user.getUserId());
+		            
+		            int result = pstmt.executeUpdate();
+		            log.debug("실행된 수 : {}", result);
+		    	}
+		    	finally {
+		        	if (pstmt != null) pstmt.close();
+		        }
+		    }
+		};
+		jdbcTemplate.update("update users set password = ?, name = ?, email = ? where userId = ?");
 	}
 
     public List<User> findAll() throws SQLException {
