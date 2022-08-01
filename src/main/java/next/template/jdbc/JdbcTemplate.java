@@ -50,7 +50,6 @@ public abstract class JdbcTemplate {
 	}
 	
 	public void setValues(PreparedStatement pstmt) throws SQLException{
-		pss.setValues(pstmt);
 	}
 	
 	public Object mapRow(ResultSet rs) throws SQLException{
