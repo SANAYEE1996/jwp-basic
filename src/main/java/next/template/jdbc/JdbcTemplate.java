@@ -3,7 +3,6 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,29 +11,26 @@ import next.template.config.PreparedStatementSetter;
 import next.template.config.RowMapper;
 
 
-public abstract class JdbcTemplate {
+public abstract class JdbcTemplate<T> {
 	
-	public PreparedStatementSetter pss;
-	public RowMapper rm;
 	
-	public void update(String query) throws Exception{
-		PreparedStatement pstmt = null;
-		try(Connection con = ConnectionManager.getConnection();){
-			pstmt = con.prepareStatement(query);
-			setValues(pstmt);
+	public void update(String query, PreparedStatementSetter pss) throws Exception{
+		try(Connection con = ConnectionManager.getConnection();
+			PreparedStatement pstmt = con.prepareStatement(query);){
+			pss.setValues(pstmt);
 			pstmt.executeUpdate();
 		}
 	}
 	
-	public List<Object> query(String query) throws Exception{
+	public List<T> query(String query, PreparedStatementSetter pss, RowMapper<T> rm) throws Exception{
 		ResultSet rs = null;
 		try(Connection con = ConnectionManager.getConnection();
 			PreparedStatement pstmt = con.prepareStatement(query);) {
-			setValues(pstmt);
+			pss.setValues(pstmt);
 			rs = pstmt.executeQuery();
-			List<Object> result = new ArrayList<>();
+			List<T> result = new ArrayList<>();
 			while(rs.next()) { 
-				result.add(mapRow(rs));
+				result.add(rm.mapRow(rs));
 			}
 			return result;
 		}
@@ -43,16 +39,10 @@ public abstract class JdbcTemplate {
 		}
 	}
 	
-	public Object queryForObject(String query) throws Exception {
-		List<Object> result = query(query);
+	public T queryForObject(String query, PreparedStatementSetter pss, RowMapper<T> rm) throws Exception {
+		List<T> result = query(query,pss,rm);
 		if(result.isEmpty()) return null;
 		return result.get(0);
 	}
 	
-	public void setValues(PreparedStatement pstmt) throws SQLException{
-	}
-	
-	public Object mapRow(ResultSet rs) throws SQLException{
-		return rm.mapRow(rs);
-	}
 }
