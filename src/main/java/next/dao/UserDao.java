@@ -23,9 +23,7 @@ public class UserDao {
 	            pstmt.setString(4, user.getEmail());
 			}
 		};
-		JdbcTemplate<Object> jdbcTemplate = new JdbcTemplate<Object>() {
-			
-		};
+		JdbcTemplate<User> jdbcTemplate = new JdbcTemplate<User>();
 		jdbcTemplate.update("INSERT INTO USERS VALUES (?, ?, ?, ?)",pss);
 	}
     
@@ -39,9 +37,7 @@ public class UserDao {
 	            pstmt.setString(4, user.getUserId());
 			}
 		};
-		JdbcTemplate<Object> jdbcTemplate = new JdbcTemplate<Object>() {
-			
-		};
+		JdbcTemplate<User> jdbcTemplate = new JdbcTemplate<User>();
 		jdbcTemplate.update("update users set password = ?, name = ?, email = ? where userId = ?", pss);
 	}
 	
@@ -51,15 +47,8 @@ public class UserDao {
 			public void setValues(PreparedStatement pstmt) throws Exception {
 			}
     	};
-    	RowMapper<User> rm = new RowMapper<User>() {
-			@Override
-			public User mapRow(ResultSet rs) throws Exception {
-				return new User(rs.getString("userId"),rs.getString("password"),rs.getString("name"),rs.getString("email"));
-			}
-		};
-		JdbcTemplate<User> jdbcTemplate = new JdbcTemplate<User>() {
-			
-		};
+    	RowMapper<User> rm = (ResultSet rs) -> new User(rs.getString("userId"),rs.getString("password"),rs.getString("name"),rs.getString("email"));
+		JdbcTemplate<User> jdbcTemplate = new JdbcTemplate<User>();
     	return jdbcTemplate.query("SELECT userId, password, name, email FROM USERS",pss,rm);
     }
 
@@ -70,15 +59,8 @@ public class UserDao {
 				pstmt.setString(1, userId);
 			}
 		};
-		RowMapper<User> rm = new RowMapper<User>() {
-			@Override
-			public User mapRow(ResultSet rs) throws Exception {
-				return new User(rs.getString("userId"),rs.getString("password"),rs.getString("name"),rs.getString("email"));
-			}
-		};
-		JdbcTemplate<User> jdbcTemplate = new JdbcTemplate<User>() {
-			
-		};
+		RowMapper<User> rm = (ResultSet rs) -> new User(rs.getString("userId"),rs.getString("password"),rs.getString("name"),rs.getString("email"));
+		JdbcTemplate<User> jdbcTemplate = new JdbcTemplate<User>();
     	return jdbcTemplate.queryForObject("SELECT userId, password, name, email FROM USERS WHERE userId=?",pss,rm);
     }
 }

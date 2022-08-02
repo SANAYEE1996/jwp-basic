@@ -2,6 +2,7 @@ package next.template.config;
 
 import java.sql.ResultSet;
 
+@FunctionalInterface
 public interface RowMapper<T> {
-	public T mapRow(ResultSet rs) throws Exception;
+	T mapRow(ResultSet rs) throws Exception;
 }
