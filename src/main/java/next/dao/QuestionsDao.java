@@ -9,6 +9,18 @@ import core.jdbc.RowMapper;
 import next.model.Questions;
 
 public class QuestionsDao {
+	
+	public void insert(Questions questions) {
+		JdbcTemplate jdbcTemplate = new JdbcTemplate();
+		String sql = "INSERT INTO "
+					+"QUESTIONS (writer, title, contents, createdDate, countOfAnswer) "
+					+"VALUES (?, ?, ?, CURRENT_TIMESTAMP(), 0)";
+		jdbcTemplate.update(sql,  
+				  questions.getWriter(), 
+				  questions.getTitle(),
+				  questions.getContents());
+	}
+	
 	public List<Questions> findAll(){
 		JdbcTemplate jdbcTemplate = new JdbcTemplate();
 		String sql = "SELECT questionId, writer, title, contents, createdDate, countOfAnswer"
