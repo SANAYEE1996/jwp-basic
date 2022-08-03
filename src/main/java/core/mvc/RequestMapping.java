@@ -12,6 +12,7 @@ import next.controller.ListUserController;
 import next.controller.LoginController;
 import next.controller.LogoutController;
 import next.controller.ProfileController;
+import next.controller.QnaPostController;
 import next.controller.QnaShowController;
 import next.controller.UpdateFormUserController;
 import next.controller.UpdateUserController;
@@ -24,6 +25,7 @@ public class RequestMapping {
         mappings.put("/", new HomeController());
         mappings.put("/users/form", new ForwardController("/user/form.jsp"));
         mappings.put("/users/loginForm", new ForwardController("/user/login.jsp"));
+        mappings.put("/qna/form", new ForwardController("/qna/form.jsp"));
         mappings.put("/users", new ListUserController());
         mappings.put("/users/login", new LoginController());
         mappings.put("/users/profile", new ProfileController());
@@ -32,6 +34,7 @@ public class RequestMapping {
         mappings.put("/users/updateForm", new UpdateFormUserController());
         mappings.put("/users/update", new UpdateUserController());
         mappings.put("/qna/show", new QnaShowController());
+        mappings.put("/qna/post", new QnaPostController());
 
         logger.info("Initialized Request Mapping!");
     }
