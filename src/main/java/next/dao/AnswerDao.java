@@ -14,6 +14,23 @@ import core.jdbc.PreparedStatementCreator;
 import core.jdbc.RowMapper;
 
 public class AnswerDao {
+	
+	public void delete(String answerId) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        String sql = "delete from ANSWERS where answerId = ?";
+        PreparedStatementCreator psc = new PreparedStatementCreator() {
+            @Override
+            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+                PreparedStatement pstmt = con.prepareStatement(sql);
+                pstmt.setString(1, answerId);
+                return pstmt;
+            }
+        };
+
+        KeyHolder keyHolder = new KeyHolder();
+        jdbcTemplate.update(psc, keyHolder);
+    }
+	
     public Answer insert(Answer answer) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         String sql = "INSERT INTO ANSWERS (writer, contents, createdDate, questionId) VALUES (?, ?, ?, ?)";
