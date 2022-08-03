@@ -2,15 +2,15 @@ package next.model;
 
 public class Answers {
 	private String answerId;
-	private String writerId;
+	private String writer;
 	private String contents;
 	private String createdDate;
 	private String questionId;
 	
-	public Answers(	String answerId, String writerId,String contents,
+	public Answers(	String answerId, String writer,String contents,
 					String createdDate,String questionId) {
 		this.answerId = answerId;
-		this.writerId = writerId;
+		this.writer = writer;
 		this.contents = contents;
 		this.createdDate = createdDate;
 		this.questionId = questionId;
@@ -19,8 +19,8 @@ public class Answers {
 	public String getAnswerId() {
 		return answerId;
 	}
-	public String getWriterId() {
-		return writerId;
+	public String getWriter() {
+		return writer;
 	}
 	public String getContents() {
 		return contents;
