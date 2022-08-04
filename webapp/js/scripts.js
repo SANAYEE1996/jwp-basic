@@ -30,7 +30,7 @@ $(".qna-comment").on("click", ".form-delete", deleteAnswer);
 
 function deleteAnswer(e) {
   e.preventDefault();
-
+  console.log("삭제버튼 누르긴 했어요?");
   var deleteBtn = $(this);
   var queryString = deleteBtn.closest("form").serialize();
 
@@ -44,7 +44,8 @@ function deleteAnswer(e) {
     },
     success: function (json, status) {
       if (json.status) {
-        deleteBtn.closest('article').remove();
+    	  console.log("for checking! ! ",json.status);
+    	  deleteBtn.closest('article').remove();
       }
     }
   });
