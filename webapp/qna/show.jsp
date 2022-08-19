@@ -53,7 +53,7 @@
 
 				<div class="qna-comment">
 					<div class="qna-comment-slipp">
-						<p class="qna-comment-count"><strong>${question.countOfComment}</strong>개의 의견</p>
+						<p class="qna-comment-count"><strong class="answer-Count">${answerCount}</strong>개의 의견</p>
 						<div class="qna-comment-slipp-articles">
 							<c:forEach items="${answers}" var="each">
 							<article class="article">

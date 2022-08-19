@@ -14,6 +14,8 @@ import core.jdbc.PreparedStatementCreator;
 import core.jdbc.RowMapper;
 
 public class AnswerDao {
+	
+	
     public Answer insert(Answer answer) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         String sql = "INSERT INTO ANSWERS (writer, contents, createdDate, questionId) VALUES (?, ?, ?, ?)";
@@ -69,5 +71,19 @@ public class AnswerDao {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         String sql = "DELETE FROM ANSWERS WHERE answerId = ?";
         jdbcTemplate.update(sql, answerId);
+    }
+    
+    public int getAnswerCount(long questionId) {
+    	JdbcTemplate jdbcTemplate = new JdbcTemplate();
+    	String sql = "SELECT count(*) as count FROM ANSWERS WHERE questionId = ? ";
+    	
+    	RowMapper<Integer> rm = new RowMapper<Integer>() {
+            @Override
+            public Integer mapRow(ResultSet rs) throws SQLException {
+                return rs.getInt("count");
+            }
+        };
+    
+    	return jdbcTemplate.queryForObject(sql, rm, questionId);
     }
 }

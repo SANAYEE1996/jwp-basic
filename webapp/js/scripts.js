@@ -18,9 +18,12 @@ function addAnswer(e) {
 
 function onSuccess(json, status){
   var answer = json.answer;
+  var answerCount = json.answerCount;
+  console.log("왜 응답을 안함?",json);
   var answerTemplate = $("#answerTemplate").html();
   var template = answerTemplate.format(answer.writer, new Date(answer.createdDate), answer.contents, answer.answerId, answer.answerId);
   $(".qna-comment-slipp-articles").prepend(template);
+  $(".answer-Count").text(answerCount);
 }
 
 function onError(xhr, status) {
