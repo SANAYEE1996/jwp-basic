@@ -12,11 +12,11 @@
 
 <div class="container" id="main">
    <div class="col-md-12 col-sm-12 col-lg-10 col-lg-offset-1">
-      <div class="panel panel-default content-main">
+      <div class="panel panel-default content-main" style="padding-bottom: 60px;">
           <form name="question" method="post" action="/qna/create">
               <div class="form-group">
                   <label for="writer">글쓴이</label>
-                  <input class="form-control" id="writer" name="writer" placeholder="글쓴이"/>
+                  <input class="form-control" id="writer" name="writer" value="${writer}" placeholder="${writer}" readonly/>
               </div>
               <div class="form-group">
                   <label for="title">제목</label>
@@ -27,7 +27,6 @@
                   <textarea name="contents" id="contents" rows="5" class="form-control"></textarea>
               </div>
               <button type="submit" class="btn btn-success clearfix pull-right">질문하기</button>
-              <div class="clearfix" />
           </form>
         </div>
     </div>

@@ -7,6 +7,10 @@
 <head>
 	<%@ include file="/include/header.jspf" %>
 </head>
+<script type="text/javascript">
+	var userSession = '<c:out value="${sessionScope.user}"/>';
+	console.log(userSession);
+</script>
 <body>
 <%@ include file="/include/navigation.jspf" %>
 
