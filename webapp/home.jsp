@@ -29,6 +29,9 @@
 							<div class="reply" title="댓글">
 								<i class="icon-reply"></i>
 								<span class="point">${each.countOfComment}</span>
+								<script type="text/javascript">
+									console.log('${each.countOfComment}');
+								</script>
 							</div>
 						</div>
 					</div>

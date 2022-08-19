@@ -1,5 +1,6 @@
 // $(".qna-comment").on("click", ".answerWrite input[type=submit]", addAnswer);
 $(".answerWrite input[type=submit]").click(addAnswer);
+$(".article-util button[type=submit]").click(deleteAnswer);
 
 function addAnswer(e) {
   e.preventDefault();
@@ -39,3 +40,26 @@ String.prototype.format = function() {
         ;
   });
 };
+
+function deleteAnswer(e){
+	
+	e.preventDefault();
+	console.log("지우는 버튼을 누름");
+	var answerId = $(this).val();
+	console.log("지우려는 답변 아이디 : ",answerId);
+	console.log("지우려는 답변 아이디의 타입 : ",typeof(answerId));
+	
+	$.ajax({
+	    type : 'post',
+	    url : '/api/qna/deleteAnswer',
+	    data : answerId,
+	    dataType : 'json',
+	    error: onError,
+	    success : onDeleteSuccess,
+	  });
+};
+
+function onDeleteSuccess(json, status){
+	  var className = ".article_"+json.answerId;
+	  $(className).remove();
+}
