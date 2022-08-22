@@ -18,8 +18,8 @@ import core.mvc.ModelAndView;
 public class ShowController extends AbstractController {
     private QuestionDao questionDao = new QuestionDao();
     private AnswerDao answerDao = new AnswerDao();
-    private Question question;
-    private List<Answer> answers;
+//    private Question question;
+//    private List<Answer> answers;
 
     
 	private static final Logger log = LoggerFactory.getLogger(ShowController.class);
@@ -28,11 +28,11 @@ public class ShowController extends AbstractController {
     public ModelAndView execute(HttpServletRequest req, HttpServletResponse response) throws Exception {
         Long questionId = Long.parseLong(req.getParameter("questionId"));
 
-        question = questionDao.findById(questionId);
-        answers = answerDao.findAllByQuestionId(questionId);
+        Question question = questionDao.findById(questionId);
+        List<Answer> answers = answerDao.findAllByQuestionId(questionId);
         int answerCount = answerDao.getAnswerCount(questionId);
         
-        log.debug("댓글 ㅅ ㅜ : {}", answerCount);
+        log.debug("댓글 수 : {}", answerCount);
         
         ModelAndView mav = jspView("/qna/show.jsp");
         mav.addObject("question", question);
