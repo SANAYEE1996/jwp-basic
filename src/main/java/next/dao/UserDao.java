@@ -11,7 +11,7 @@ import core.jdbc.RowMapper;
 public class UserDao {
     public void insert(User user) {
         String sql = "INSERT INTO USERS VALUES (?, ?, ?, ?)";
-        JdbcTemplate.getIndstance().update(sql, user.getUserId(), user.getPassword(), user.getName(), user.getEmail());
+        JdbcTemplate.getInstance().update(sql, user.getUserId(), user.getPassword(), user.getName(), user.getEmail());
     }
 
     public User findByUserId(String userId) {
@@ -25,7 +25,7 @@ public class UserDao {
             }
         };
 
-        return JdbcTemplate.getIndstance().queryForObject(sql, rm, userId);
+        return JdbcTemplate.getInstance().queryForObject(sql, rm, userId);
     }
 
     public List<User> findAll() throws SQLException {
@@ -39,11 +39,11 @@ public class UserDao {
             }
         };
 
-        return JdbcTemplate.getIndstance().query(sql, rm);
+        return JdbcTemplate.getInstance().query(sql, rm);
     }
 
     public void update(User user) {
         String sql = "UPDATE USERS set password = ?, name = ?, email = ? WHERE userId = ?";
-        JdbcTemplate.getIndstance().update(sql, user.getPassword(), user.getName(), user.getEmail(), user.getUserId());
+        JdbcTemplate.getInstance().update(sql, user.getPassword(), user.getName(), user.getEmail(), user.getUserId());
     }
 }

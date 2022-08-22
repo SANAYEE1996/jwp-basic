@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class Answer {
     private long answerId;
+    
+    private String writerId;
 
     private String writer;
 
@@ -13,12 +15,13 @@ public class Answer {
 
     private long questionId;
 
-    public Answer(String writer, String contents, long questionId) {
-        this(0, writer, contents, new Date(), questionId);
+    public Answer(String writerId, String writer, String contents, long questionId) {
+        this(0, writerId, writer, contents, new Date(), questionId);
     }
 
-    public Answer(long answerId, String writer, String contents, Date createdDate, long questionId) {
+    public Answer(long answerId, String writerId, String writer, String contents, Date createdDate, long questionId) {
         this.answerId = answerId;
+        this.writerId = writerId;
         this.writer = writer;
         this.contents = contents;
         this.createdDate = createdDate;
@@ -28,6 +31,10 @@ public class Answer {
     public long getAnswerId() {
         return answerId;
     }
+    
+	public String getWriterId() {
+		return writerId;
+	}
 
     public String getWriter() {
         return writer;
@@ -76,4 +83,5 @@ public class Answer {
         return "Answer [answerId=" + answerId + ", writer=" + writer + ", contents=" + contents + ", createdDate="
                 + createdDate + ", questionId=" + questionId + "]";
     }
+
 }

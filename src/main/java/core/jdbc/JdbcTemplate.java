@@ -15,7 +15,7 @@ public class JdbcTemplate {
 		
 	}
 	
-	public static JdbcTemplate getIndstance() {
+	public static JdbcTemplate getInstance() {
 		return instance;
 	}
 	

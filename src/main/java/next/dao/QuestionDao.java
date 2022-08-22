@@ -32,13 +32,13 @@ public class QuestionDao {
         };
 
         KeyHolder keyHolder = new KeyHolder();
-        JdbcTemplate.getIndstance().update(psc, keyHolder);
+        JdbcTemplate.getInstance().update(psc, keyHolder);
         return findById(keyHolder.getId());
     }
     
     public void update(Question question) {
         String sql = "UPDATE QUESTIONS set title = ?, contents = ? WHERE questionId = ?";
-        JdbcTemplate.getIndstance().update(sql, question.getTitle(), question.getContents(),question.getQuestionId());
+        JdbcTemplate.getInstance().update(sql, question.getTitle(), question.getContents(),question.getQuestionId());
     }
     
     public List<Question> findAll() {
@@ -54,7 +54,7 @@ public class QuestionDao {
 
         };
 
-        return JdbcTemplate.getIndstance().query(sql, rm);
+        return JdbcTemplate.getInstance().query(sql, rm);
     }
 
     public Question findById(long questionId) {
@@ -69,6 +69,11 @@ public class QuestionDao {
             }
         };
 
-        return JdbcTemplate.getIndstance().queryForObject(sql, rm, questionId);
+        return JdbcTemplate.getInstance().queryForObject(sql, rm, questionId);
+    }
+    
+    public void delete(long questionId) {
+    	String sql = "DELETE FROM QUESTIONS where questionId = ?";
+    	JdbcTemplate.getInstance().update(sql, questionId);
     }
 }

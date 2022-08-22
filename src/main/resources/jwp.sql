@@ -9,7 +9,7 @@ CREATE TABLE USERS (
 	PRIMARY KEY               (userId)
 );
 
-INSERT INTO USERS VALUES('admin', 'password', '자바지기', 'admin@slipp.net');
+INSERT INTO USERS VALUES('admin', '1234', '자바지기', 'admin@slipp.net');
 
 DROP TABLE IF EXISTS QUESTIONS;
 
@@ -28,6 +28,7 @@ DROP TABLE IF EXISTS ANSWERS;
 
 CREATE TABLE ANSWERS (
 	answerId 			bigint				auto_increment,
+	writerId			varchar(12)			NOT NULL,
 	writer				varchar(30)			NOT NULL,
 	contents			varchar(5000)		NOT NULL,
 	createdDate			timestamp			NOT NULL,
@@ -87,14 +88,14 @@ INSERT INTO QUESTIONS (questionId, writerId, writer, title, contents, createdDat
 혹시 javascript를 학습하기 좋은 라이브러리가 있을까? 소스 코드 라인 수가 많지 않으면서 소스 코드 스타일에서도 배울 점이 많은 그런 라이브러리면 딱 좋겠다.',
 CURRENT_TIMESTAMP(), 2);
 
-INSERT INTO ANSWERS (writer, contents, createdDate, questionId) VALUES
-('eungju',
+INSERT INTO ANSWERS (writerId, writer, contents, createdDate, questionId) VALUES
+('admin', 'eungju',
 'http://underscorejs.org/docs/underscore.html Underscore.js 강추합니다!
 쓸일도 많고, 코드도 길지 않고, 자바스크립트의 언어나 기본 API를 보완하는 기능들이라 자바스크립트 이해에 도움이 됩니다. 무엇보다 라이브러리 자체가 아주 유용합니다.', 
 CURRENT_TIMESTAMP(), 7);
 
-INSERT INTO ANSWERS (writer, contents, createdDate, questionId) VALUES
-('Hanghee Yi',
+INSERT INTO ANSWERS (writerId, writer, contents, createdDate, questionId) VALUES
+('admin', 'Hanghee Yi',
 '언더스코어 강력 추천드려요.
 다만 최신 버전을 공부하는 것보다는 0.10.0 버전부터 보는게 더 좋더군요.
 코드의 변천사도 알 수 있고, 최적화되지 않은 코드들이 기능은 그대로 두고 최적화되어 가는 걸 보면 재미가 있습니다 :)', 
@@ -110,15 +111,15 @@ INSERT INTO QUESTIONS (questionId, writerId, writer, title, contents, createdDat
 그런데 위 내용은 스레드에 안전하지 않기 때문에 람다 표현식에서 변수 값을 변경하는 것을 막는다고 이야기하고 있다. 왜 스레드에 안전하지 않은 것일까?',
 CURRENT_TIMESTAMP(), 3);
 
-INSERT INTO ANSWERS (writer, contents, createdDate, questionId) VALUES
-('jhindhal.jhang',
+INSERT INTO ANSWERS (writerId, writer, contents, createdDate, questionId) VALUES
+('admin', 'jhindhal.jhang',
 'Thread safe 랑 final은 관계가 있는거지만 다르게 봐야 하는게 아닌가?
 굳이 lambda로 변수를 쓸 때 final 지정을 하지 않은 변수 더라도 final효과처럼 사용 한다면 (읽기만 한다 던지...) 사용 가능 하니
 Final 과 꼭 lambda를 연관 하지 말고 thread safe하게 프로그래밍 하기 위해 final(또는 final처럼)을 해야 한다는 의미가 아닐까? 생각 하는데...', 
 CURRENT_TIMESTAMP(), 8);
 
-INSERT INTO ANSWERS (writer, contents, createdDate, questionId) VALUES
-('강우',
+INSERT INTO ANSWERS (writerId, writer, contents, createdDate, questionId) VALUES
+('admin', '강우',
 '저도 잘은 모르겠지만, 그냥 몇글자 적어볼께요.
 일단 변수의 생명 주기랑, 값이 아닌 레퍼런스에 의한 부수효과는 무시하고,
 쓰레드 관점에서만 볼때에,
@@ -127,7 +128,7 @@ INSERT INTO ANSWERS (writer, contents, createdDate, questionId) VALUES
 아 그러고 보니 "안정"이라고 되어있네요. 저건 다른 의미인가.. ^^;;', 
 CURRENT_TIMESTAMP(), 8);
 
-INSERT INTO ANSWERS (writer, contents, createdDate, questionId) VALUES
-('Toby Lee',
+INSERT INTO ANSWERS (writerId, writer, contents, createdDate, questionId) VALUES
+('admin', 'Toby Lee',
 '람다식에서 사용되는 변수라면 람다식 내부에서 정의된 로컬 변수이거나 람다식이 선언된 외부의 변수를 참조하는 것일텐데, 전자라면 아무리 변경해도 문제될 이유가 없고, 후자는 변경 자체가 허용이 안될텐데. 이 설명이 무슨 뜻인지 이해가 안 됨.', 
 CURRENT_TIMESTAMP(), 8);

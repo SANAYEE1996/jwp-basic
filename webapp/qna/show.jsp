@@ -39,8 +39,9 @@
 								<a class="link-modify-article" href="/qna/updateForm?questionId=${question.questionId}&writerId=${question.writerId}">수정</a>
 							</li>
 							<li>
-								<form class="form-delete" action="#" method="POST">
-									<input type="hidden" name="_method" value="DELETE">
+								<form class="form-delete" action="/qna/delete" method="POST">
+									<input type="hidden" name="questionId" value="${question.questionId}">
+									<input type="hidden" name="writerId" value="${question.writerId}">
 									<button class="link-delete-article" type="submit">삭제</button>
 								</form>
 							</li>

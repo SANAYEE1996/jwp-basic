@@ -1,6 +1,6 @@
 // $(".qna-comment").on("click", ".answerWrite input[type=submit]", addAnswer);
 $(".answerWrite input[type=submit]").click(addAnswer);
-$(".article-util button[type=submit]").click(deleteAnswer);
+$(".qna-comment-slipp-articles button[type=submit]").click(deleteAnswer);
 
 function addAnswer(e) {
   e.preventDefault();

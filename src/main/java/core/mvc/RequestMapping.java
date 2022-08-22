@@ -7,10 +7,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import next.controller.HomeController;
+import next.controller.answer.AddAnswerController;
+import next.controller.answer.DeleteAnswerController;
 import next.controller.mobile.MobileHomeController;
-import next.controller.qna.AddAnswerController;
-import next.controller.qna.DeleteAnswerController;
+import next.controller.mobile.MobileQnaDeleteController;
 import next.controller.qna.QnaCreaterController;
+import next.controller.qna.QnaDeleteController;
 import next.controller.qna.QnaFormController;
 import next.controller.qna.QnaUpdateController;
 import next.controller.qna.QnaUpdateFormController;
@@ -43,9 +45,11 @@ public class RequestMapping {
         mappings.put("/qna/create", new QnaCreaterController());
         mappings.put("/qna/updateForm", new QnaUpdateFormController());
         mappings.put("/qna/update", new QnaUpdateController());
+        mappings.put("/qna/delete", new QnaDeleteController());
         mappings.put("/api/qna/addAnswer", new AddAnswerController());
         mappings.put("/api/qna/deleteAnswer", new DeleteAnswerController());
         mappings.put("/api/qna/list", new MobileHomeController());
+        mappings.put("/api/qna/delete", new MobileQnaDeleteController());
 
         logger.info("Initialized Request Mapping!");
     }
