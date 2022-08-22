@@ -9,7 +9,8 @@
 * jwp.sql 파일에서 SQL 문을 실행해 데이터 베이스 테이블을 초기화한다.
 
 * 서블릿 컨테이너는 클라이언트로부터의 최초 요청시 (또는 컨테이너에 서블릿 인스턴스를 생성하도록 미리 설정을 한다면 최초 요청 전에) 
-  DispatcherServletStartup 속성으로 설정할 수 있다.
+  DispatcherServletStartup 인스턴스를 생성한다.(생성자 호출)
+  이에 대한 설정은 @WebServlet의 loadOnStartup 속성으로 설정할 수 있다.
   이 문제에서는 loadOnStartup 속성이 설정되어 있기 때문에 서블릿 컨테이너가 시작하는 시점에 인스턴스를 생성한다.
   
 * DispatchServlet 인스턴스의 init() 메서드를 호출해 초기화 작업을 진행한다.
