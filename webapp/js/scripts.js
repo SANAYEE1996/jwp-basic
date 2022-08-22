@@ -20,7 +20,7 @@ function addAnswer(e) {
 function onSuccess(json, status){
   var answer = json.answer;
   var answerCount = json.answerCount;
-  console.log("왜 응답을 안함?",json);
+  console.log("답변 추가 ajax 성공했음 : ",json);
   var answerTemplate = $("#answerTemplate").html();
   var template = answerTemplate.format(answer.writer, new Date(answer.createdDate), answer.contents, answer.answerId, answer.answerId);
   $(".qna-comment-slipp-articles").prepend(template);
@@ -46,13 +46,15 @@ function deleteAnswer(e){
 	e.preventDefault();
 	console.log("지우는 버튼을 누름");
 	var answerId = $(this).val();
-	console.log("지우려는 답변 아이디 : ",answerId);
-	console.log("지우려는 답변 아이디의 타입 : ",typeof(answerId));
+	var questionId = $("input[name='questionId']").val();
+	var dataMap = {"answerId" : answerId,
+				   "questionId":questionId};
+	console.log("지우려는 맵 : ",dataMap);
 	
 	$.ajax({
 	    type : 'post',
 	    url : '/api/qna/deleteAnswer',
-	    data : answerId,
+	    data : dataMap,
 	    dataType : 'json',
 	    error: onError,
 	    success : onDeleteSuccess,
@@ -61,5 +63,8 @@ function deleteAnswer(e){
 
 function onDeleteSuccess(json, status){
 	  var className = ".article_"+json.answerId;
+	  var answerCount = json.answerCount;
+	  console.log("답변 삭제 ajax 성공했음 : ", answerCount);
 	  $(className).remove();
+	  $(".answer-Count").text(answerCount);
 }
