@@ -18,9 +18,9 @@ public class QnaUpdateController extends AbstractController{
 	
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		QuestionDao questionDao = new QuestionDao();
-		log.debug("수정하려는 글의 정보들 :  {}", new Question(Long.parseLong(request.getParameter("questionId")), request.getParameter("title"),request.getParameter("contents")).toString());
+		log.debug("수정 하려는 글 : {}", request.getParameter("questionId"));
 		questionDao.update(new Question(Long.parseLong(request.getParameter("questionId")), request.getParameter("title"),request.getParameter("contents")));
-		return jspView("redirect:/");
+		return jspView("redirect:/");	
 	}
 
 }
