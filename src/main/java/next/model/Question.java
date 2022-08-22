@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class Question {
     private long questionId;
+    
+    private String writerId;
 
     private String writer;
 
@@ -15,13 +17,18 @@ public class Question {
 
     private int countOfComment;
 
-    public Question(String writer, String title, String contents) {
-        this(0, writer, title, contents, new Date(), 0);
+    public Question(String writerId, String writer, String title, String contents) {
+        this(0, writerId, writer, title, contents, new Date(), 0);
+    }
+    
+    public Question(long questionId, String title, String contents) {
+    	this(questionId, null, null, title, contents, null, 0);
     }
 
-    public Question(long questionId, String writer, String title, String contents, Date createdDate,
+    public Question(long questionId, String writerId,String writer, String title, String contents, Date createdDate,
             int countOfComment) {
         this.questionId = questionId;
+        this.writerId = writerId;
         this.writer = writer;
         this.title = title;
         this.contents = contents;
@@ -32,7 +39,11 @@ public class Question {
     public long getQuestionId() {
         return questionId;
     }
-
+    
+    public String getWriterId() {
+		return writerId;
+	}
+    
     public String getWriter() {
         return writer;
     }
@@ -84,4 +95,5 @@ public class Question {
             return false;
         return true;
     }
+
 }

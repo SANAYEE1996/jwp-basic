@@ -23,7 +23,7 @@ public class QuestionDaoTest {
     
     @Test
     public void crud() {
-        Question question = new Question("writer", "title", "contents");
+        Question question = new Question("user", "writer", "title", "contents");
         QuestionDao questionDao = new QuestionDao();
         Question savedQuestion = questionDao.insert(question);
         log.debug("question : {}", savedQuestion);
